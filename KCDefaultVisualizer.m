@@ -183,7 +183,7 @@
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_lineBreak:) object:nil];
 }
-   
+
 -(void) _scheduleLineBreak
 {
 	[self performSelector:@selector(_lineBreak:) withObject:nil afterDelay:[[NSUserDefaults standardUserDefaults] floatForKey:@"default.keystrokeDelay"]];
@@ -231,7 +231,7 @@
 
 -(void) abandonCurrentView
 {
-	// sdf_mostRecentBezelView = nil;
+	// _mostRecentBezelView = nil;
 	[self _cancelLineBreak];
 }
 
