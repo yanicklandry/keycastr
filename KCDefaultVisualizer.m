@@ -1,6 +1,6 @@
 //	Copyright (c) 2009 Stephen Deken
 //	All rights reserved.
-// 
+//
 //	Redistribution and use in source and binary forms, with or without modification,
 //	are permitted provided that the following conditions are met:
 //
@@ -149,11 +149,11 @@
 	[self setFrame:r display:NO];
 	[self setFrameUsingName:@"KCBezelWindow default.bezelWindow"];
 	[self setFrameAutosaveName:@"KCBezelWindow default.bezelWindow"];
-	
+
 	[self setLevel:NSScreenSaverWindowLevel];
 	[self setOpaque:NO];
 	[self setBackgroundColor:[NSColor clearColor]];
-	
+
 	r.origin = NSZeroPoint;
 	[self setAlphaValue:1];
 	[self setMovableByWindowBackground:YES];
@@ -206,25 +206,33 @@
 			backgroundColor:[userDefaults colorForKey:@"default.bezelColor"]
 			];
 		[_bezelViews addObject:_mostRecentBezelView];
-    if ([_bezelViews count] > 3) { // FIXME or NOT
-      KCDefaultVisualizerBezelView* victim = [_bezelViews objectAtIndex:0];
-      [victim scheduleFadeOut];
-      [_bezelViews removeObject:victim];
-    }
+		if ([_bezelViews count] > 3) { // FIXME or NOT
+			KCDefaultVisualizerBezelView* victim = [_bezelViews objectAtIndex:0];
+			[victim scheduleFadeOut];
+			[_bezelViews removeObject:victim];
+		}
 		NSRect r = [self frame];
 		r.size.height += 10 + [_mostRecentBezelView frame].size.height;
 		[_mostRecentBezelView setAutoresizingMask:NSViewMinYMargin];
-		
+
 		[self setFrame:r display:YES animate:NO];
 
 		[[self contentView] addSubview:_mostRecentBezelView];
 	}
+	else if ([charString isEqualToString:@"\xe2\x8e\x8b"])
+	{
+		for (KCDefaultVisualizerBezelView* victim in _bezelViews)
+			[victim scheduleFadeOut];
+		[_bezelViews release];
+		_bezelViews = [[NSMutableArray alloc] init];
+		_mostRecentBezelView = nil;
+	}
 	else if ([charString isEqualToString:@"\xe2\x87\xa5"])
 	{
 		_mostRecentBezelView = nil;
-  }
-  else
-  {
+	}
+	else
+	{
 		[_mostRecentBezelView appendString:charString];
 	}
 }
@@ -315,14 +323,14 @@
 {
 	if ([self isAnimating])
 		return;
-		
+
 	if (duration < 0.01)
 	{
 		// just do it immediately
 		[self animationDidEnd:self];
 		return;
 	}
-	
+
 	[self setDelegate:self];
 	[self setDuration:duration];
 	[self setFrameRate:30];
@@ -350,7 +358,7 @@
 	[_bezelView removeFromSuperview];
 	[_bezelView release];
 	int deltaY = [_bezelView frame].size.height + 10;
-	
+
 	NSArray* a = [[w contentView] subviews];
 	int vc = [a count];
 	int i;
@@ -361,7 +369,7 @@
 		r.origin.y += deltaY;
 		[v setFrame:r];
 	}
-	
+
 	NSRect r = [w frame];
 	r.size.height -= deltaY;
 	if (r.size.height < 0)

@@ -152,7 +152,7 @@
 		3D3F54DD0F31448A001C7272 /* KCVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCVisualizer.h; sourceTree = "<group>"; };
 		3D3F54DE0F31448A001C7272 /* KCVisualizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCVisualizer.m; sourceTree = "<group>"; };
 		3D3F54E10F31E52E001C7272 /* KCDefaultVisualizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KCDefaultVisualizer.h; sourceTree = "<group>"; };
-		3D3F54E20F31E52E001C7272 /* KCDefaultVisualizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCDefaultVisualizer.m; sourceTree = "<group>"; };
+		3D3F54E20F31E52E001C7272 /* KCDefaultVisualizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KCDefaultVisualizer.m; sourceTree = "<group>"; usesTabs = 1; wrapsLines = 1; };
 		3D3F54E70F31E5C2001C7272 /* KCDefaultVisualizer.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = KCDefaultVisualizer.nib; sourceTree = "<group>"; };
 		3D3F56400F32D266001C7272 /* ShortcutRecorder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShortcutRecorder.framework; sourceTree = "<group>"; };
 		3D3F56C30F3374E9001C7272 /* NSBezierPath+RoundedRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSBezierPath+RoundedRect.m"; sourceTree = "<group>"; };
