@@ -79,7 +79,7 @@
 {
 	if (visualizerWindow == nil)
 	{
-		NSRect frameRect = NSMakeRect(0,100,200,100);
+		NSRect frameRect = NSMakeRect(0,100,600,100);
 		visualizerWindow = [[[KCDefaultVisualizerWindow alloc]
 			initWithContentRect:frameRect
 			styleMask:NSBorderlessWindowMask
@@ -144,7 +144,7 @@
 	_runningAnimations = [[NSMutableArray alloc] init];
 
 	NSScreen *s = [NSScreen mainScreen];
-	NSRect r = NSMakeRect([s frame].size.width-210,10,200,0);
+	NSRect r = NSMakeRect([s frame].size.width-610,10,600,0);
 
 	[self setFrame:r display:NO];
 	[self setFrameUsingName:@"KCBezelWindow default.bezelWindow"];
