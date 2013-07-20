@@ -183,7 +183,7 @@
 {
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_lineBreak:) object:nil];
 }
-
+   
 -(void) _scheduleLineBreak
 {
 	[self performSelector:@selector(_lineBreak:) withObject:nil afterDelay:[[NSUserDefaults standardUserDefaults] floatForKey:@"default.keystrokeDelay"]];
@@ -194,7 +194,7 @@
 	[self _cancelLineBreak];
 	NSString* charString = [keystroke convertToString];
 //		NSLog( @"%d", [keystroke isCommand] );
-	if (_mostRecentBezelView == nil || [keystroke isCommand])
+	if (_mostRecentBezelView == nil)
 	{
 		NSUserDefaults* userDefaults = [NSUserDefaults standardUserDefaults];
 		_mostRecentBezelView = [[KCDefaultVisualizerBezelView alloc]
@@ -206,6 +206,11 @@
 			backgroundColor:[userDefaults colorForKey:@"default.bezelColor"]
 			];
 		[_bezelViews addObject:_mostRecentBezelView];
+    if ([_bezelViews count] > 3) { // FIXME or NOT
+      KCDefaultVisualizerBezelView* victim = [_bezelViews objectAtIndex:0];
+      [victim scheduleFadeOut];
+      [_bezelViews removeObject:victim];
+    }
 		NSRect r = [self frame];
 		r.size.height += 10 + [_mostRecentBezelView frame].size.height;
 		[_mostRecentBezelView setAutoresizingMask:NSViewMinYMargin];
@@ -213,19 +218,20 @@
 		[self setFrame:r display:YES animate:NO];
 
 		[[self contentView] addSubview:_mostRecentBezelView];
-		if ([keystroke isCommand])
-			_mostRecentBezelView = nil;
 	}
-	else
+	else if ([charString isEqualToString:@"\xe2\x87\xa5"])
 	{
+		_mostRecentBezelView = nil;
+  }
+  else
+  {
 		[_mostRecentBezelView appendString:charString];
-		[self _scheduleLineBreak];
 	}
 }
 
 -(void) abandonCurrentView
 {
-	_mostRecentBezelView = nil;
+	// sdf_mostRecentBezelView = nil;
 	[self _cancelLineBreak];
 }
 
@@ -396,7 +402,7 @@ static const int kKCBezelBorder = 6;
 	[self setAutoresizingMask:NSViewMinYMargin];
 
 	[self maybeResize];
-	[self scheduleFadeOut];
+	// [self scheduleFadeOut];
 
 	return self;
 }
@@ -495,7 +501,7 @@ static const int kKCBezelBorder = 6;
 
 -(void) appendString:(NSString*)t
 {
-	[self scheduleFadeOut];
+	// [self scheduleFadeOut];
 	_contentText = [[NSString stringWithFormat:@"%@%@", _contentText, t] retain];
 	[_textStorage appendAttributedString:[[NSAttributedString alloc] initWithString:t]];
 	[_textStorage setAttributes:[self attributes] range:NSMakeRange(0, [_textStorage length])];
