@@ -135,6 +135,8 @@
 
 @implementation KCDefaultVisualizerWindow
 
+static const int bezels = 4;
+
 -(id) initWithContentRect:(NSRect)contentRect styleMask:(int)aStyle backing:(NSBackingStoreType)bufferingType defer:(BOOL)flag
 {
 	if (![super initWithContentRect:contentRect styleMask:aStyle backing:bufferingType defer:flag])
@@ -206,7 +208,7 @@
 			backgroundColor:[userDefaults colorForKey:@"default.bezelColor"]
 			];
 		[_bezelViews addObject:_mostRecentBezelView];
-		if ([_bezelViews count] > 3) { // FIXME or NOT
+		if ([_bezelViews count] >= bezels) {
 			KCDefaultVisualizerBezelView* victim = [_bezelViews objectAtIndex:0];
 			[victim scheduleFadeOut];
 			[_bezelViews removeObject:victim];
@@ -229,6 +231,10 @@
 	}
 	else if ([charString isEqualToString:@"\xe2\x87\xa5"])
 	{
+    int i = bezels - [_bezelViews count];
+		for (KCDefaultVisualizerBezelView* victim in _bezelViews) {
+      [victim setAlphaValue:(i++ * 1.0 / bezels)];
+    }
 		_mostRecentBezelView = nil;
 	}
 	else
@@ -417,12 +423,16 @@ static const int kKCBezelBorder = 6;
 
 -(void) scheduleFadeOut
 {
+	[self removeFromSuperview];
+	[self release];
+  /*
 	NSTimeInterval fadeDelay = [[NSUserDefaults standardUserDefaults] floatForKey:@"default.fadeDelay"];
 	if (fadeDelay == 0)
 		fadeDelay = 2;
 	SEL fadeOutSelector = @selector(beginFadeOut:);
 	[NSObject cancelPreviousPerformRequestsWithTarget:self selector:fadeOutSelector object:nil];
 	[self performSelector:fadeOutSelector withObject:nil afterDelay:fadeDelay];
+  */
 }
 
 -(void) beginFadeOut:(id)sender
@@ -469,7 +479,8 @@ static const int kKCBezelBorder = 6;
 	[[_backgroundColor colorWithAlphaComponent:_opacity * [_backgroundColor alphaComponent]] setFill];
 	[bgPath fill];
 
-	[[self shadow] set];
+	// No shadow
+	// [[self shadow] set];
 	[_layoutManager drawGlyphsForGlyphRange:NSMakeRange(0,[_textStorage length]) atPoint:NSMakePoint(kKCBezelBorder, kKCBezelBorder)];
 }
 
