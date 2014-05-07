@@ -165,24 +165,24 @@ CGEventRef eventTapCallback(
 	UInt32 deadKeys = 0;
 
 	KeyboardLayoutRef keyboardLayout;
-	if (KLGetCurrentKeyboardLayout(&keyboardLayout) != noErr)
-	{
-		FAIL_LOUDLY( 1, @"Could not get current keyboard layout." );
-	}
+//	if (KLGetCurrentKeyboardLayout(&keyboardLayout) != noErr)
+//	{
+//		FAIL_LOUDLY( 1, @"Could not get current keyboard layout." );
+//	}
 
 	KeyboardLayoutKind keyboardKind;
-	if (KLGetKeyboardLayoutProperty(keyboardLayout, kKLKind, (const void**)&keyboardKind) != noErr)
-	{
-		FAIL_LOUDLY( 1, @"Could not get keyboard kind." );
-	}
+//	if (KLGetKeyboardLayoutProperty(keyboardLayout, kKLKind, (const void**)&keyboardKind) != noErr)
+//	{
+//		FAIL_LOUDLY( 1, @"Could not get keyboard kind." );
+//	}
 
 	if (keyboardKind == kKLKCHRKind)
 	{
 		Handle kchrHandle;
-		if (KLGetKeyboardLayoutProperty(keyboardLayout, kKLKCHRData, (const void**)&kchrHandle) != noErr)
-		{
-			FAIL_LOUDLY( 1, @"Could not get keyboard KCHR data." );
-		}
+//		if (KLGetKeyboardLayoutProperty(keyboardLayout, kKLKCHRData, (const void**)&kchrHandle) != noErr)
+//		{
+//			FAIL_LOUDLY( 1, @"Could not get keyboard KCHR data." );
+//		}
 		UInt32 modifiers = 0;
 		if (f & kCGEventFlagMaskShift && !(f & (kCGEventFlagMaskCommand | kCGEventFlagMaskAlternate | kCGEventFlagMaskControl)))
 			modifiers |= shiftKey;
@@ -202,10 +202,10 @@ CGEventRef eventTapCallback(
 	else if (keyboardKind == kKLKCHRuchrKind || keyboardKind == kKLuchrKind)
 	{
 		const void* resource;
-		if (KLGetKeyboardLayoutProperty(keyboardLayout, kKLuchrData, &resource) != noErr)
-		{
-			FAIL_LOUDLY( 1, @"Could not get keyboard UCHR data." );
-		}
+//		if (KLGetKeyboardLayoutProperty(keyboardLayout, kKLuchrData, &resource) != noErr)
+//		{
+//			FAIL_LOUDLY( 1, @"Could not get keyboard UCHR data." );
+//		}
 			
 		UInt32 modifiers = 0;
 		if (f & kCGEventFlagMaskShift && !(f & (kCGEventFlagMaskCommand | kCGEventFlagMaskAlternate | kCGEventFlagMaskControl)))

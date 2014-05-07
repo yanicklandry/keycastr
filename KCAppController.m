@@ -375,13 +375,16 @@ static NSString* kKCPrefSelectedVisualizer = @"selectedVisualizer";
 		// manually flush preferences
 		[[NSUserDefaults standardUserDefaults] synchronize];
 	
-		FSRef fsRef;
-		FSPathMakeRef( (const UInt8 *)[[[NSBundle mainBundle] bundlePath] fileSystemRepresentation], &fsRef, NULL );
+		//FSRef fsRef;
+		//FSPathMakeRef( (const UInt8 *)[[[NSBundle mainBundle] bundlePath] fileSystemRepresentation], &fsRef, NULL );
+        
+        NSString *canonicalPath = [NSString stringWithUTF8String:[[[NSBundle mainBundle] bundlePath] fileSystemRepresentation]];
+        
 
 		LSApplicationParameters appParams;
 		appParams.version = 0;
 		appParams.flags = kLSLaunchNewInstance;
-		appParams.application = &fsRef;
+		appParams.application = canonicalPath;
 		appParams.asyncLaunchRefCon = NULL;
 		appParams.environment = NULL;
 		appParams.argv = NULL;
